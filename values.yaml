@@ -172,6 +172,7 @@ service:
   ## HTTP port
   ##
   port: 80
+  httpsPort: 443
   ## Specify the nodePort(s) value(s) for the LoadBalancer and NodePort service types.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
   ##
