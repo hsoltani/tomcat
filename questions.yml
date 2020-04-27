@@ -1,0 +1,110 @@
+labels:
+  io.cattle.role: cluster # options are cluster/project
+  io.rancher.app_min_version: 7.3.8
+categories:
+- Blog
+- CMS
+questions:
+- variable: defaultImage
+  default: true
+  description: "Use default Docker image"
+  label: Use Default Image
+  type: boolean
+  show_subquestion_if: false
+  group: "Container Images"
+  subquestions:
+  - variable: image.repository
+    default: "tomcat"
+    description: "tomcat image name"
+    type: string
+    label: tomcat Image Name
+  - variable: image.tag
+    default: "7.0"
+    description: "tomcat image tag"
+    type: string
+    label: Image Tag
+  - variable: webarchive.image.repository
+    default: "ananwaresystems/webarchive"
+    description: "webarchive image name"
+    type: string
+    label: webarchive Image Name
+  - variable: webarchive.image.tag
+    default: "1.0"
+    description: "webarchive image tag"
+    type: string
+    label: webarchive Image Tag
+- variable: tomcatDirectory
+  default: "/usr/local/tomcat/webapps"
+  description: "Path of the application"
+  type: string
+  required: true
+  label: Tomcat Directory
+  group: "Tomcat Settings"
+- variable: persistence.enabled
+  default: false
+  description: "Enable persistent volume for Tomcat"
+  type: boolean
+  required: true
+  label: Tomcat Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "Tomcat Settings"
+  subquestions:
+  - variable: persistence.size
+    default: "10Gi"
+    description: "Tomcat Persistent Volume Size"
+    type: string
+    label: Tomcat Volume Size
+  - variable: persistence.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: storageclass
+    label: Default StorageClass for Tomcat
+  - variable: persistence.existingClaim
+    default: ""
+    description: "If not empty, uses the specified existing PVC instead of creating new one"
+    type: pvc
+    label: Existing Persistent Volume Claim for Tomcat
+- variable: ingress.enabled
+  default: true
+  description: "Expose app using Layer 7 Load Balancer - ingress"
+  type: boolean
+  label: Expose app using Layer 7 Load Balancer
+  show_subquestion_if: true
+  group: "Services and Load Balancing"
+  subquestions:
+  - variable: ingress.hostname
+    default: "xip.io"
+    description: "Hostname to your Tomcat installation"
+    type: hostname
+    required: true
+    label: Hostname
+- variable: service.type
+  default: "NodePort"
+  description: "Tomcat Service type"
+  type: enum
+  show_if: "ingress.enabled=false"
+  options:
+  - "ClusterIP"
+  - "NodePort"
+  - "LoadBalancer"
+  required: true
+  label: Tomcat Service Type
+  show_subquestion_if: "NodePort"
+  group: "Services and Load Balancing"
+  subquestions:
+  - variable: service.nodePorts.http
+    default: ""
+    description: "NodePort http port(to set explicitly, choose port between 30000-32767)"
+    type: int
+    min: 30000
+    max: 32767
+    show_if: "ingress.enabled=false&&serviceType=NodePort"
+    label: NodePort Http Port
+  - variable: service.nodePorts.https
+    default: ""
+    description: "NodePort https port(to set explicitly, choose port between 30000-32767)"
+    type: int
+    min: 30000
+    max: 32767
+    show_if: "ingress.enabled=false&&serviceType=NodePort"
+    label: NodePort Https Port
