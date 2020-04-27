@@ -176,10 +176,10 @@ service:
   ## Specify the nodePort(s) value(s) for the LoadBalancer and NodePort service types.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
   ##
- # nodePort: ""
- nodePorts:
-  http: ""
-   https: ""
+  nodePort: "http"
+# nodePorts:
+#  http: ""
+  # https: ""
   ## Set the LoadBalancer service type to internal only.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
   ##
