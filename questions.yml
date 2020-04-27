@@ -75,7 +75,7 @@ questions:
   - variable: ingress.hosts.name
     default: "xip.io"
     description: "Hostsname to your Tomcat installation"
-    type: hosts
+    type: hostname
     required: true
     label: Hostsname
 - variable: service.type
