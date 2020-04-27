@@ -72,7 +72,7 @@ questions:
   show_subquestion_if: true
   group: "Services and Load Balancing"
   subquestions:
-  - variable: ingress.hosts.name
+  - variable: ingress.hosts
     default: "xip.io"
     description: "Hostname to your Tomcat installation"
     type: hostname
