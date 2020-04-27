@@ -14,12 +14,12 @@ questions:
   group: "Container Images"
   subquestions:
   - variable: image.repository
-    default: "tomcat"
+    default: "bitnami/tomcat"
     description: "tomcat image name"
     type: string
     label: tomcat Image Name
   - variable: image.tag
-    default: "7.0"
+    default: "9.0.34-debian-10-r13"
     description: "tomcat image tag"
     type: string
     label: Image Tag
